@@ -318,29 +318,11 @@ Hello Hermes. Reply with: Telegram connection works.
 
 Confirm a reply in Telegram. Keep the terminal or SSH session open during this foreground test; press `Ctrl+C` to stop it. If your workshop deployment already runs the gateway as a service, restart that service after configuration instead of starting a second copy. See [starting the Telegram gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram#start-the-gateway).
 
-## 7. Troubleshooting
-
-| Problem | What to check |
-| --- | --- |
-| `LightsailFullAccess` is missing | It is a customer-managed policy in the screenshots. Create the example policy from section 1.2 or use the instructor-provided policy. |
-| AWS says no permissions were selected | Tick the policy's checkbox, then continue to the review screen. |
-| AWS `AccessDenied` for Lightsail | Confirm the policy is attached to the same IAM user used by the CLI profile. Account-level restrictions or permission boundaries can also deny access. |
-| AWS credentials are invalid | Check that the access key and secret belong to the same active key pair and that you selected `hermes-workshop`. |
-| AWS secret key was not saved | Generate a replacement; AWS cannot reveal the old secret again. |
-| OpenRouter returns `401` | Re-enter the complete key through `hermes model`; check expiration and revocation. |
-| OpenRouter reports insufficient credit or a key limit | Check both the account credit balance and the key's spending cap. |
-| Telegram username is unavailable | Choose a unique bot username ending in `bot`. |
-| Telegram bot does not respond | Check that the gateway is running, the token belongs to this bot, and your own numeric ID is allowed. Send the message to your bot rather than BotFather. |
-| Telegram reports a polling conflict | Stop the duplicate gateway or other program using the same token. Use one running gateway for the workshop bot. |
-| Telegram token was revoked | Copy the replacement token from BotFather, update the gateway configuration, and restart it. |
-
-For further diagnosis, consult the [OpenRouter Hermes integration guide](https://openrouter.ai/blog/tutorials/hermes-agent/) and [Hermes Telegram troubleshooting](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram#troubleshooting).
-
-## 8. Install OpenCode and start the ClawMacdo web UI
+## 7. Install OpenCode and start the ClawMacdo web UI
 
 Use OpenCode to install ClawMacdo and start its local deployment UI. This walkthrough follows the screenshots in [`screens/opencode/`](screens/opencode/). Run these steps on the computer where you will open the browser.
 
-### 8.1 Install OpenCode
+### 7.1 Install OpenCode
 
 Use a macOS, Linux, or WSL terminal with Node.js and npm installed. If needed, install Node.js from the [official download page](https://nodejs.org/en/download), then open a new terminal. Check the prerequisites:
 
@@ -362,13 +344,13 @@ Open a terminal in this workshop's repository folder and launch OpenCode:
 opencode
 ```
 
-### 8.2 Connect a model provider
+### 7.2 Connect a model provider
 
 In OpenCode, enter `/connect`, choose **OpenRouter**, and paste the API key you created in section 3 into the credential prompt. Then enter `/models` and select the instructor's model with tool support. The [OpenCode provider guide](https://opencode.ai/v2/docs/providers) describes these commands.
 
 The screenshots use an already-connected **OpenCode Go** account. You can use your connected OpenRouter account for this exercise. Configuring OpenRouter in Hermes does not automatically configure it in OpenCode.
 
-### 8.3 Ask OpenCode to install and serve ClawMacdo
+### 7.3 Ask OpenCode to install and serve ClawMacdo
 
 Use the **Build** agent, shown at the bottom of the screenshots, so OpenCode can carry out the installation. See [OpenCode's built-in agents](https://opencode.ai/v2/docs/agents#builtins).
 
@@ -390,7 +372,7 @@ The local URL is **http://127.0.0.1:3456**. Wait for the startup message before 
 
 ![OpenCode installs ClawMacdo and starts serve on port 3456](screens/opencode/Screenshot%202026-10-23%20at%2012.10.28%E2%80%AFAM.png)
 
-### 8.4 Retrieve the PIN and sign in
+### 7.4 Retrieve the PIN and sign in
 
 ClawMacdo prints its login PIN in the server's startup output. If OpenCode started the server in the background, ask in the same session:
 
@@ -408,7 +390,7 @@ Open **http://127.0.0.1:3456** in your browser and enter the PIN from **your own
 
 To choose your own six-digit PIN, set **`CLAWMACDO_PIN`** in the server's environment before starting it. Restart an existing server after changing that variable. For Railway, set it under the service's **Variables** and redeploy; see the [Railway guide](railway/README.md).
 
-### 8.5 Start it directly from a terminal
+### 7.5 Start it directly from a terminal
 
 You can also perform the same installation and startup yourself:
 
@@ -429,10 +411,28 @@ Keep this terminal open, read the PIN from its output, and open **http://127.0.0
 | The browser cannot connect | Confirm the server is still running and the browser is on the same computer. |
 | The PIN is rejected | Read the current server's startup output or check its `CLAWMACDO_PIN` environment setting. |
 
-## 9. Ready for the lab and cleanup
+## 8. Ready for the lab and cleanup
 
 Setup is complete when AWS identifies the correct user and lists Lightsail instances, Hermes answers a model test, and your Telegram bot replies to your allowed account.
 
 The repository also includes the [Hermes compare-offers skill](examples/hermes/compare-offers/SKILL.md) and its [practice cases](examples/hermes/compare-offers/test-cases.json) for the workshop exercises.
 
 When the lab finishes, stop the gateway and delete workshop cloud resources you no longer need using the deployment exercise's cleanup instructions. Deactivate and delete unused AWS access keys, revoke unused OpenRouter keys, and revoke the Telegram token in BotFather if retiring the bot. Keep any credentials you retain in your password manager and private configuration files.
+
+## 9. Troubleshooting
+
+| Problem | What to check |
+| --- | --- |
+| `LightsailFullAccess` is missing | It is a customer-managed policy in the screenshots. Create the example policy from section 1.2 or use the instructor-provided policy. |
+| AWS says no permissions were selected | Tick the policy's checkbox, then continue to the review screen. |
+| AWS `AccessDenied` for Lightsail | Confirm the policy is attached to the same IAM user used by the CLI profile. Account-level restrictions or permission boundaries can also deny access. |
+| AWS credentials are invalid | Check that the access key and secret belong to the same active key pair and that you selected `hermes-workshop`. |
+| AWS secret key was not saved | Generate a replacement; AWS cannot reveal the old secret again. |
+| OpenRouter returns `401` | Re-enter the complete key through `hermes model`; check expiration and revocation. |
+| OpenRouter reports insufficient credit or a key limit | Check both the account credit balance and the key's spending cap. |
+| Telegram username is unavailable | Choose a unique bot username ending in `bot`. |
+| Telegram bot does not respond | Check that the gateway is running, the token belongs to this bot, and your own numeric ID is allowed. Send the message to your bot rather than BotFather. |
+| Telegram reports a polling conflict | Stop the duplicate gateway or other program using the same token. Use one running gateway for the workshop bot. |
+| Telegram token was revoked | Copy the replacement token from BotFather, update the gateway configuration, and restart it. |
+
+For further diagnosis, consult the [OpenRouter Hermes integration guide](https://openrouter.ai/blog/tutorials/hermes-agent/) and [Hermes Telegram troubleshooting](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram#troubleshooting).
