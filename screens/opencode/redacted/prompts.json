@@ -1,0 +1,9 @@
+{
+  "tool": "Built-in image_gen image editing",
+  "images": [
+    {
+      "file": "clawmacdo-login-pin.png",
+      "prompt": "Edit the supplied OpenCode terminal screenshot for publication in a workshop README. Preserve its composition, dark terminal appearance, all non-sensitive instructional text, commands, localhost URLs, and port 3456. Make opaque, irreversible redactions of ALL THREE occurrences of the actual six-digit login PIN: one after 'PIN:' in the startup log, one in the reasoning paragraph after 'which is', and one in the final response after 'The PIN is'. Replace each PIN completely with an opaque dark rectangle containing the clear label 'REDACTED'; no original digits may remain visible. Also cover the entire private absolute log-file path after '$ cat', including its wrapped continuation line, with an opaque dark rectangle labeled '[LOCAL LOG FILE]'. Keep '$ cat' readable. Do not alter the rest of the screenshot, invent values, add decoration, or blur the sensitive text."
+    }
+  ]
+}

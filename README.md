@@ -2,7 +2,7 @@
 
 Prepare your AWS Lightsail credentials, OpenRouter API key, Telegram bot token, and Telegram user ID for the Building Autonomous AI Agents workshop. Then configure Hermes and test a conversation through Telegram.
 
-The walkthrough follows the supplied images in [`screens/`](screens/), captured on 22 October 2026. Menu labels may change. Use your own account, bot name, and credentials when following the examples.
+The walkthrough follows the supplied images in [`screens/`](screens/), captured on 22–23 October 2026. Menu labels may change. Use your own account, bot name, and credentials when following the examples.
 
 To host the ClawMacdo deployment UI, follow the [Railway deployment guide](railway/README.md). It installs `clawmacdo@0.95.1` and runs `clawmacdo serve --port 3456`.
 
@@ -343,3 +343,96 @@ Setup is complete when AWS identifies the correct user and lists Lightsail insta
 The repository also includes the [Hermes compare-offers skill](examples/hermes/compare-offers/SKILL.md) and its [practice cases](examples/hermes/compare-offers/test-cases.json) for the workshop exercises.
 
 When the lab finishes, stop the gateway and delete workshop cloud resources you no longer need using the deployment exercise's cleanup instructions. Deactivate and delete unused AWS access keys, revoke unused OpenRouter keys, and revoke the Telegram token in BotFather if retiring the bot. Keep any credentials you retain in your password manager and private configuration files.
+
+## 9. Install OpenCode and start the ClawMacdo web UI
+
+Use OpenCode to install ClawMacdo and start its local deployment UI. This walkthrough follows the screenshots in [`screens/opencode/`](screens/opencode/). Run these steps on the computer where you will open the browser.
+
+### 9.1 Install OpenCode
+
+Use a macOS, Linux, or WSL terminal with Node.js and npm installed. If needed, install Node.js from the [official download page](https://nodejs.org/en/download), then open a new terminal. Check the prerequisites:
+
+```bash
+node --version
+npm --version
+```
+
+Install the current OpenCode V2 CLI using the command in the [official installation guide](https://opencode.ai/v2/docs):
+
+```bash
+npm install -g @opencode/cli
+opencode --version
+```
+
+Open a terminal in this workshop's repository folder and launch OpenCode:
+
+```bash
+opencode
+```
+
+### 9.2 Connect a model provider
+
+In OpenCode, enter `/connect`, choose **OpenRouter**, and paste the API key you created in section 3 into the credential prompt. Then enter `/models` and select the instructor's model with tool support. The [OpenCode provider guide](https://opencode.ai/v2/docs/providers) describes these commands.
+
+The screenshots use an already-connected **OpenCode Go** account. You can use your connected OpenRouter account for this exercise. Configuring OpenRouter in Hermes does not automatically configure it in OpenCode.
+
+### 9.3 Ask OpenCode to install and serve ClawMacdo
+
+Use the **Build** agent, shown at the bottom of the screenshots, so OpenCode can carry out the installation. See [OpenCode's built-in agents](https://opencode.ai/v2/docs/agents#builtins).
+
+Enter this prompt:
+
+```text
+Install the clawmacdo CLI using this command npm install -g clawmacdo@0.95.1 then start the web UI locally
+```
+
+![Ask OpenCode to install ClawMacdo and start the local web UI](screens/opencode/Screenshot%202026-10-23%20at%2012.09.37%E2%80%AFAM.png)
+
+Review any command permission prompts. The screenshots show OpenCode installing version `0.95.1`, checking the CLI, and starting this command in the background:
+
+```bash
+CLAWMACDO_BIND=127.0.0.1 clawmacdo serve --port 3456
+```
+
+The local URL is **http://127.0.0.1:3456**. Wait for the startup message before opening it.
+
+![OpenCode installs ClawMacdo and starts serve on port 3456](screens/opencode/Screenshot%202026-10-23%20at%2012.10.28%E2%80%AFAM.png)
+
+### 9.4 Retrieve the PIN and sign in
+
+ClawMacdo prints its login PIN in the server's startup output. If OpenCode started the server in the background, ask in the same session:
+
+```text
+What is the PIN? Read the startup output of the ClawMacdo server you started.
+```
+
+![Ask OpenCode for the ClawMacdo login PIN](screens/opencode/Screenshot%202026-10-23%20at%2012.11.27%E2%80%AFAM.png)
+
+OpenCode can read the background process's log and report the PIN. The screenshot also shows an HTTP `302` redirect to `/login`, confirming that the web server is responding.
+
+![Read the ClawMacdo startup log and login URL with the PIN redacted](screens/opencode/redacted/clawmacdo-login-pin.png)
+
+Open **http://127.0.0.1:3456** in your browser and enter the PIN from **your own running server**. All PIN occurrences and the private log-file path in the published screenshot are redacted; the original capture is excluded from Git.
+
+To choose your own six-digit PIN, set **`CLAWMACDO_PIN`** in the server's environment before starting it. Restart an existing server after changing that variable. For Railway, set it under the service's **Variables** and redeploy; see the [Railway guide](railway/README.md).
+
+### 9.5 Start it directly from a terminal
+
+You can also perform the same installation and startup yourself:
+
+```bash
+npm install -g clawmacdo@0.95.1
+clawmacdo --version
+CLAWMACDO_BIND=127.0.0.1 clawmacdo serve --port 3456
+```
+
+Keep this terminal open, read the PIN from its output, and open **http://127.0.0.1:3456**. Press `Ctrl+C` in this terminal to stop the server. If OpenCode already started a background server, ask it to stop that process before running another copy on port `3456`.
+
+| Problem | What to check |
+| --- | --- |
+| `npm` is not found | Install Node.js and reopen the terminal. |
+| `opencode` or `clawmacdo` is not found after installation | Reopen the terminal and check that your npm global executable directory is on `PATH`. |
+| OpenCode cannot call the model | Check `/connect`, the selected model in `/models`, and your provider's credits. |
+| Port `3456` is already in use | Use the existing server or stop it before starting another. |
+| The browser cannot connect | Confirm the server is still running and the browser is on the same computer. |
+| The PIN is rejected | Read the current server's startup output or check its `CLAWMACDO_PIN` environment setting. |
