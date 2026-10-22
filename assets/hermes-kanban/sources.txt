@@ -1,0 +1,14 @@
+Screenshots from the official Nous Research / Hermes Agent Kanban tutorial.
+Tutorial: https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban-tutorial
+Reference: https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban
+Retrieved: 2026-10-21
+
+board-overview.png
+https://raw.githubusercontent.com/NousResearch/hermes-agent/main/website/static/img/kanban-tutorial/01-board-overview.png
+
+task-details.png
+https://raw.githubusercontent.com/NousResearch/hermes-agent/main/website/static/img/kanban-tutorial/03-drawer-schema-task.png
+
+The source screenshots display UI version v0.11.0. Current documentation also describes a review state.
+Original PNG files are preserved. The presentation uses native picture crops to enlarge relevant areas.
+Slide 14 is an illustrative MyShopper classroom exercise, not a capture of a live run.
