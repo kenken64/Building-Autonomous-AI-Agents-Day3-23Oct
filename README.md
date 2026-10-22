@@ -15,6 +15,8 @@ Have these ready:
 - A Telegram account signed in on your phone or computer.
 - A private password manager for the credentials you create.
 - Terminal access to the computer or Lightsail server where you will run Hermes.
+- Node.js with npm installed on your computer. Check with `node --version` and `npm --version`.
+- The OpenCode terminal app installed and available through the `opencode` command. Follow [section 7.1](#71-install-opencode) if you need to install Node.js or OpenCode.
 
 At the end of setup, you should have these five values:
 
