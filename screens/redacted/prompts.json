@@ -1,0 +1,14 @@
+{
+  "tool": "Built-in image_gen image editing",
+  "images": [
+    {
+      "file": "aws-access-keys.png",
+      "prompt": "Use case: precise-object-edit. Asset type: a real setup-guide screenshot. Input image is the edit target. Redact the entire access key ID value and the entire secret access key value in the central Retrieve access keys table. Also redact any account name or account ID in the top right navigation. Use fully opaque solid dark rectangles labelled REDACTED in white. Remove all underlying sensitive text completely; do not blur, pixelate, reveal partial identifiers, invent replacement keys, or reproduce any credential elsewhere. Preserve all other interface text, buttons, layout, colors, and framing exactly. The result must remain a legible instructional screenshot. Output one edited image."
+    },
+    {
+      "file": "openrouter-api-key.png",
+      "initial_prompt": "Use case: precise-object-edit. Asset type: a real setup-guide screenshot. Input image is the edit target. Redact the entire contents of the central field below Your new key, including every visible prefix, suffix and masking dot. Redact any visible API key snippets in the background list. Use fully opaque solid dark rectangles labelled REDACTED in white. Remove all underlying sensitive text completely; do not blur, pixelate, reveal partial identifiers, invent replacement keys, or reproduce any credential elsewhere. Preserve all other interface text, buttons, layout, colors, and framing exactly. The result must remain a legible instructional screenshot. Output one edited image.",
+      "final_prompt": "Use case: precise-object-edit. Input image is an already-redacted OpenRouter screenshot. Keep the central modal, REDACTED key field, all central instructional text, icons, and button exactly unchanged. Cover the entire background API-key list outside the modal, including ALL partial text on the left edge, with uniform opaque dark background. No key snippets, suffixes in parentheses, or original list entries may remain visible anywhere outside the modal. Output the single screenshot with all key-related values fully removed."
+    }
+  ]
+}

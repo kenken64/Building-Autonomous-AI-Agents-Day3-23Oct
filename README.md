@@ -4,6 +4,8 @@ Prepare your AWS Lightsail credentials, OpenRouter API key, Telegram bot token, 
 
 The walkthrough follows the supplied images in [`screens/`](screens/), captured on 22 October 2026. Menu labels may change. Use your own account, bot name, and credentials when following the examples.
 
+To host the ClawMacdo deployment UI, follow the [Railway deployment guide](railway/README.md). It installs `clawmacdo@0.95.1` and runs `clawmacdo serve --port 3456`.
+
 ## Before you begin
 
 Have these ready:
@@ -26,7 +28,7 @@ At the end of setup, you should have these five values:
 
 Keep the actual keys and tokens out of this README, source code, screenshots, and chat messages. The AWS credentials manage infrastructure; OpenRouter and Telegram credentials connect the running agent to those services.
 
-> **Maintainer note:** The original local screenshot named `Screenshot 2026-10-22 at 11.39.13 PM.png` (with a narrow space before `PM` in the actual filename) exposes an AWS access key and secret. It is excluded from Git and this guide. Rotate that key and redact or remove the image before sharing the local folder through other channels.
+> **Screenshot privacy:** The AWS key-pair and OpenRouter key images below are edited copies with credential fields redacted. Their original captures remain local and are excluded from Git. The original AWS capture exposed a complete key pair; rotate that key even though the guide now uses a redacted copy.
 
 ## 1. Create an AWS IAM user
 
@@ -126,6 +128,8 @@ The secret is shown only at creation. If you lose it, create a replacement and d
 
 ![Add a description and create the access key](screens/Screenshot%202026-10-22%20at%2011.39.01%E2%80%AFPM.png)
 
+![Save the access key ID and secret access key; both values are redacted](screens/redacted/aws-access-keys.png)
+
 </details>
 
 ### Verify the AWS credentials
@@ -177,7 +181,7 @@ Copy the key before closing the dialog; the full value is only revealed at creat
 
 ![Configure a key name, seven-day expiration, and five-dollar limit](screens/Screenshot%202026-10-22%20at%2011.31.47%E2%80%AFPM.png)
 
-![Copy the newly created OpenRouter key; its value is masked](screens/Screenshot%202026-10-22%20at%2011.31.52%E2%80%AFPM.png)
+![Copy the newly created OpenRouter key; its complete value is redacted](screens/redacted/openrouter-api-key.png)
 
 </details>
 

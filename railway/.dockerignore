@@ -1,0 +1,5 @@
+# The image installs the published npm package and needs no repository files.
+**
+!Dockerfile
+!.dockerignore
+!railway.toml
