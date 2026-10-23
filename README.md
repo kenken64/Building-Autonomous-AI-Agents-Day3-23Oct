@@ -16,7 +16,7 @@ Have these ready:
 - A private password manager for the credentials you create.
 - Terminal access to the computer or Lightsail server where you will run Hermes.
 - Node.js with npm installed on your computer. Check with `node --version` and `npm --version`.
-- The OpenCode terminal app installed and available through the `opencode` command. Follow [section 7.1](#71-install-opencode) if you need to install Node.js or OpenCode.
+- The OpenCode terminal app installed and available through the `opencode` command. Follow [section 6.1](#61-install-opencode) if you need to install Node.js or OpenCode.
 
 At the end of setup, you should have these five values:
 
@@ -248,83 +248,11 @@ Replace the example number with yours. Use the numeric ID rather than your `@use
 
 ![Search for the user information bot](screens/Screenshot%202026-10-22%20at%2011.34.26%E2%80%AFPM.png)
 
-## 6. Connect the credentials to Hermes
-
-Run this section on the machine that will host Hermes. For the AWS lab, connect to the Lightsail server provided or created during the deployment exercise. For a local exercise, use your own terminal.
-
-### 6.1 Install Hermes if needed
-
-For a Linux server, macOS, or WSL2 terminal with the prerequisites listed in the [Hermes installation guide](https://hermes-agent.nousresearch.com/docs/getting-started/installation):
-
-```bash
-curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
-```
-
-Open a new terminal or reconnect your SSH session after installation, then check the command:
-
-```bash
-hermes --help
-```
-
-Skip installation if the workshop server already has Hermes. Use the same operating-system user for configuration and for running the gateway.
-
-### 6.2 Configure OpenRouter
-
-Run the model setup wizard:
-
-```bash
-hermes model
-```
-
-Choose **OpenRouter**, enter your saved API key when prompted, and select the model assigned by your instructor. Then start a chat:
-
-```bash
-hermes
-```
-
-Ask `Reply with: Hermes model connection works.` Confirm a response before configuring Telegram. This is a model API call and uses your OpenRouter credits. The interactive provider workflow is documented in the [Hermes quickstart](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart#2-choose-a-provider).
-
-### 6.3 Configure Telegram
-
-Exit the chat and run:
-
-```bash
-hermes gateway setup
-```
-
-Select **Telegram**, then enter your **bot token** and your **numeric user ID** in the allowed-user field. The wizard saves the configuration.
-
-For a standard Linux/macOS/WSL installation using the default profile, the relevant entries in `~/.hermes/.env` are:
-
-```dotenv
-OPENROUTER_API_KEY=<YOUR_OPENROUTER_API_KEY>
-TELEGRAM_BOT_TOKEN=<YOUR_TELEGRAM_BOT_TOKEN>
-TELEGRAM_ALLOWED_USERS=<YOUR_NUMERIC_TELEGRAM_USER_ID>
-```
-
-These are placeholders. If editing manually, update the existing entries in that private file without overwriting unrelated configuration. The model selection is handled separately by `hermes model`. See [Hermes Telegram configuration](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram#step-5-configure-hermes).
-
-### 6.4 Run and test the gateway
-
-Start one gateway process:
-
-```bash
-hermes gateway
-```
-
-Open **your new bot's chat**, select **Start** if needed, and send:
-
-```text
-Hello Hermes. Reply with: Telegram connection works.
-```
-
-Confirm a reply in Telegram. Keep the terminal or SSH session open during this foreground test; press `Ctrl+C` to stop it. If your workshop deployment already runs the gateway as a service, restart that service after configuration instead of starting a second copy. See [starting the Telegram gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram#start-the-gateway).
-
-## 7. Install OpenCode and start the ClawMacdo web UI
+## 6. Install OpenCode and start the ClawMacdo web UI
 
 Use OpenCode to install ClawMacdo and start its local deployment UI. This walkthrough follows the screenshots in [`screens/opencode/`](screens/opencode/). Run these steps on the computer where you will open the browser.
 
-### 7.1 Install OpenCode
+### 6.1 Install OpenCode
 
 Use a macOS, Linux, or WSL terminal with Node.js and npm installed. If needed, install Node.js from the [official download page](https://nodejs.org/en/download), then open a new terminal. Check the prerequisites:
 
@@ -346,13 +274,13 @@ Open a terminal in this workshop's repository folder and launch OpenCode:
 opencode
 ```
 
-### 7.2 Connect a model provider
+### 6.2 Connect a model provider
 
 In OpenCode, enter `/connect`, choose **OpenRouter**, and paste the API key you created in section 3 into the credential prompt. Then enter `/models` and select the instructor's model with tool support. The [OpenCode provider guide](https://opencode.ai/v2/docs/providers) describes these commands.
 
 The screenshots use an already-connected **OpenCode Go** account. You can use your connected OpenRouter account for this exercise. Configuring OpenRouter in Hermes does not automatically configure it in OpenCode.
 
-### 7.3 Ask OpenCode to install and serve ClawMacdo
+### 6.3 Ask OpenCode to install and serve ClawMacdo
 
 Use the **Build** agent, shown at the bottom of the screenshots, so OpenCode can carry out the installation. See [OpenCode's built-in agents](https://opencode.ai/v2/docs/agents#builtins).
 
@@ -374,7 +302,7 @@ The local URL is **http://127.0.0.1:3456**. Wait for the startup message before 
 
 ![OpenCode installs ClawMacdo and starts serve on port 3456](screens/opencode/Screenshot%202026-10-23%20at%2012.10.28%E2%80%AFAM.png)
 
-### 7.4 Retrieve the PIN and sign in
+### 6.4 Retrieve the PIN and sign in
 
 ClawMacdo prints its login PIN in the server's startup output. If OpenCode started the server in the background, ask in the same session:
 
@@ -392,7 +320,7 @@ Open **http://127.0.0.1:3456** in your browser and enter the PIN from **your own
 
 To choose your own six-digit PIN, set **`CLAWMACDO_PIN`** in the server's environment before starting it. Restart an existing server after changing that variable. For Railway, set it under the service's **Variables** and redeploy; see the [Railway guide](railway/README.md).
 
-### 7.5 Start it directly from a terminal
+### 6.5 Start it directly from a terminal
 
 You can also perform the same installation and startup yourself:
 
@@ -412,6 +340,78 @@ Keep this terminal open, read the PIN from its output, and open **http://127.0.0
 | Port `3456` is already in use | Use the existing server or stop it before starting another. |
 | The browser cannot connect | Confirm the server is still running and the browser is on the same computer. |
 | The PIN is rejected | Read the current server's startup output or check its `CLAWMACDO_PIN` environment setting. |
+
+## 7. Connect the credentials to Hermes
+
+Run this section on the machine that will host Hermes. For the AWS lab, connect to the Lightsail server provided or created during the deployment exercise. For a local exercise, use your own terminal.
+
+### 7.1 Install Hermes if needed
+
+For a Linux server, macOS, or WSL2 terminal with the prerequisites listed in the [Hermes installation guide](https://hermes-agent.nousresearch.com/docs/getting-started/installation):
+
+```bash
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+```
+
+Open a new terminal or reconnect your SSH session after installation, then check the command:
+
+```bash
+hermes --help
+```
+
+Skip installation if the workshop server already has Hermes. Use the same operating-system user for configuration and for running the gateway.
+
+### 7.2 Configure OpenRouter
+
+Run the model setup wizard:
+
+```bash
+hermes model
+```
+
+Choose **OpenRouter**, enter your saved API key when prompted, and select the model assigned by your instructor. Then start a chat:
+
+```bash
+hermes
+```
+
+Ask `Reply with: Hermes model connection works.` Confirm a response before configuring Telegram. This is a model API call and uses your OpenRouter credits. The interactive provider workflow is documented in the [Hermes quickstart](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart#2-choose-a-provider).
+
+### 7.3 Configure Telegram
+
+Exit the chat and run:
+
+```bash
+hermes gateway setup
+```
+
+Select **Telegram**, then enter your **bot token** and your **numeric user ID** in the allowed-user field. The wizard saves the configuration.
+
+For a standard Linux/macOS/WSL installation using the default profile, the relevant entries in `~/.hermes/.env` are:
+
+```dotenv
+OPENROUTER_API_KEY=<YOUR_OPENROUTER_API_KEY>
+TELEGRAM_BOT_TOKEN=<YOUR_TELEGRAM_BOT_TOKEN>
+TELEGRAM_ALLOWED_USERS=<YOUR_NUMERIC_TELEGRAM_USER_ID>
+```
+
+These are placeholders. If editing manually, update the existing entries in that private file without overwriting unrelated configuration. The model selection is handled separately by `hermes model`. See [Hermes Telegram configuration](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram#step-5-configure-hermes).
+
+### 7.4 Run and test the gateway
+
+Start one gateway process:
+
+```bash
+hermes gateway
+```
+
+Open **your new bot's chat**, select **Start** if needed, and send:
+
+```text
+Hello Hermes. Reply with: Telegram connection works.
+```
+
+Confirm a reply in Telegram. Keep the terminal or SSH session open during this foreground test; press `Ctrl+C` to stop it. If your workshop deployment already runs the gateway as a service, restart that service after configuration instead of starting a second copy. See [starting the Telegram gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram#start-the-gateway).
 
 ## 8. Ready for the lab and cleanup
 
